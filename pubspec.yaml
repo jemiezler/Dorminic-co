@@ -34,9 +34,9 @@ flutter:
   assets:
     - assets/images/
     - assets/images/onboard/
-    - assets/fonts/
+    #- assets/fonts/
     - assets/icons/
-    - assets/videos/
+    #- assets/videos/
 
   uses-material-design: true
 
