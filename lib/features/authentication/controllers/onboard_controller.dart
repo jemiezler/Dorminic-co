@@ -25,7 +25,9 @@ class OnBoardController extends GetxController {
       Get.offAll(() => const LoginScreen());
     } else {
       int page = currentPageIndex.value + 1;
-      pageController.jumpToPage(page);
+      pageController.animateToPage(
+        page,duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,);
     }
   }
 

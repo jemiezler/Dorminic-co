@@ -1,5 +1,7 @@
 
 class AppSizes {
+
+  static const double inputFieldHeight = 52.0;
   // Padding and margin sizes
   static const double xs = 4.0;
   static const double sm = 8.0;
@@ -14,18 +16,18 @@ class AppSizes {
   static const double iconLg = 32.0;
 
   // Font sizes
-  static const double fontSizeSm = 14.0;
-  static const double fontSizeMd = 16.0;
-  static const double fontSizeLg = 18.0;
+  static const double fontSizeSm = 12.0;
+  static const double fontSizeMd = 14.0;
+  static const double fontSizeLg = 16.0;
 
   // Button sizes
-  static const double buttonHeight = 18.0;
+  static const double buttonHeight = 16.0;
   static const double buttonRadius = 12.0;
   static const double buttonWidth = 120.0;
   static const double buttonElevation = 4.0;
 
   // AppBar height
-  static const double appBarHeight = 56.0;
+  static const double appBarHeight = 52.0;
 
   // Image sizes
   static const double imageThumbSize = 80.0;

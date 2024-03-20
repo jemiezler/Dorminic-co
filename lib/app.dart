@@ -1,4 +1,3 @@
-import 'package:dorminic_co/features/authentication/screens/login/login.dart';
 import 'package:dorminic_co/features/authentication/screens/onboard/onboard_screen.dart';
 import 'package:dorminic_co/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +9,12 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1)),
+          child: child!,
+        );
+      },
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       theme: AppTheme.lightTheme,
