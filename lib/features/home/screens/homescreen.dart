@@ -1,13 +1,10 @@
-import 'dart:ffi';
-
-import 'package:dorminic_co/features/authentication/screens/login/login.dart';
-import 'package:dorminic_co/features/authentication/screens/onboard/onboard_screen.dart';
-import 'package:dorminic_co/features/authentication/screens/password_management/resetpasswordlinkScreen.dart';
-import 'package:dorminic_co/features/authentication/screens/signup/signup.dart';
-import 'package:dorminic_co/utils/constants/colors.dart';
+import 'package:dorminic_co/common/widgets/appbar.dart';
+import 'package:dorminic_co/common/widgets/curve_edge_widget.dart';
+import 'package:dorminic_co/common/widgets/search_container.dart';
+import 'package:dorminic_co/utils/constants/sizes.dart';
+import 'package:dorminic_co/utils/constants/text_provider.dart';
 import 'package:dorminic_co/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,32 +17,53 @@ class HomeScreen extends StatefulWidget {
 class _HomeState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(NavigationController());
     final darkMode = AppHelperFunctions.isDarkMode(context);
-    
-    return Scaffold(
-      bottomNavigationBar: Obx(
-        () => NavigationBar(
-          height: 75,
-          elevation: 0,
-          selectedIndex: controller.selectedIndex.value,
-          onDestinationSelected: (index) => controller.selectedIndex.value = index,
-          backgroundColor: darkMode ? AppColors.black : AppColors.white,
-          indicatorColor: darkMode ? AppColors.white.withOpacity(0.1) : AppColors.black.withOpacity(0.1),
 
-          destinations: const [
-            NavigationDestination(icon: Icon(Iconsax.home), label: 'Home'),
-            NavigationDestination(icon: Icon(Iconsax.menu), label: 'Menu'),
-            NavigationDestination(icon: Icon(Iconsax.message), label: 'Chat'),
-            NavigationDestination(icon: Icon(Iconsax.profile), label: 'Profile'),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CurveEdgeWidget(
+              child: CustomAppBar(
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      TextsProvider.homeAppbarTitle,
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelLarge!
+                          .apply(color: Colors.white, fontSizeFactor: 1.2),
+                    ),
+                    Text(
+                      TextsProvider.homeAppbarSubTitle,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineSmall!
+                          .apply(color: Colors.white, fontSizeFactor: 1.2),
+                    )
+                  ],
+                ),
+                actions: [
+                  IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Iconsax.profile_circle,
+                        color: Colors.white,
+                        size: 36,
+                      ))
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: AppSizes.spaceBtwSections,
+            ),
+            SearchContainer(darkMode: darkMode, text: 'Search', icon: Iconsax.search_normal_1,),
           ],
-        )
+        ),
       ),
     );
   }
-}
-
-class NavigationController extends GetxController{
-  final Rx<int> selectedIndex = 0.obs;
-  final screens = [const LoginScreen(), const SignupScreen(), const OnboardScreen(), const ResetPasswordLinkScreen()];
 }

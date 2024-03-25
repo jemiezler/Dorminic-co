@@ -14,7 +14,7 @@ class ResetPasswordLinkScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Iconsax.arrow_left),
           onPressed: () => Get.offAll(() => const LoginScreen()),
         ),
       ),

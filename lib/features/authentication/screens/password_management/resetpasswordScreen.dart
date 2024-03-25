@@ -1,4 +1,3 @@
-import 'package:dorminic_co/common/widgets/success_screen.dart';
 import 'package:dorminic_co/features/authentication/screens/login/login.dart';
 import 'package:dorminic_co/features/authentication/screens/password_management/resetpasswordlinkScreen.dart';
 import 'package:dorminic_co/utils/constants/sizes.dart';
@@ -15,7 +14,7 @@ class ResetPasswordScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Iconsax.arrow_left),
           onPressed: () => Get.offAll(() => const LoginScreen()),
         ),
       ),
