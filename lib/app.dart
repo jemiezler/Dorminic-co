@@ -1,4 +1,5 @@
 import 'package:dorminic_co/common/widgets/navbar.dart';
+import 'package:dorminic_co/features/authentication/screens/onboard/onboard_screen.dart';
 //import 'package:dorminic_co/features/authentication/screens/onboard/onboard_screen.dart';
 import 'package:dorminic_co/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      home: NavBar() ,
+      home: OnboardScreen() ,
     
     );
   }

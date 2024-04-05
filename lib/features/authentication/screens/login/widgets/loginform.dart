@@ -1,3 +1,4 @@
+import 'package:dorminic_co/common/widgets/navbar.dart';
 import 'package:dorminic_co/features/authentication/screens/password_management/resetpasswordScreen.dart';
 import 'package:dorminic_co/features/authentication/screens/signup/signup.dart';
 import 'package:dorminic_co/features/home/screens/homescreen.dart';
@@ -82,7 +83,7 @@ class LoginForm extends StatefulWidget {
             const SizedBox(height: AppSizes.spaceBtwSections,),
     
             //--Signin Btn
-            SizedBox(width: double.infinity, child: ElevatedButton(onPressed: ()=>Get.offAll(() => const HomeScreen()), child: const Text(TextsProvider.signIn),),),
+            SizedBox(width: double.infinity, child: ElevatedButton(onPressed: ()=>Get.offAll(() => NavBar()), child: const Text(TextsProvider.signIn),),),
             const SizedBox(height: AppSizes.spaceBtwItems,),
     
             //--Signup Btn

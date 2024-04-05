@@ -9,6 +9,7 @@ environment:
   sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
+  carousel_slider: ^4.2.1
   connectivity_plus: ^6.0.1
   cupertino_icons: ^1.0.6
   firebase_storage: ^11.6.10

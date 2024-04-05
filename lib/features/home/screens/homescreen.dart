@@ -1,8 +1,15 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dorminic_co/common/widgets/appbar.dart';
 import 'package:dorminic_co/common/widgets/curve_edge_widget.dart';
+import 'package:dorminic_co/common/widgets/custom_shapes/circular_container.dart';
+import 'package:dorminic_co/common/widgets/rounded_image.dart';
 import 'package:dorminic_co/common/widgets/search_container.dart';
+import 'package:dorminic_co/features/home/screens/widgets/home_slider.dart';
+import 'package:dorminic_co/utils/constants/assetpath.dart';
+import 'package:dorminic_co/utils/constants/colors.dart';
 import 'package:dorminic_co/utils/constants/sizes.dart';
 import 'package:dorminic_co/utils/constants/text_provider.dart';
+import 'package:dorminic_co/utils/device/device_utility.dart';
 import 'package:dorminic_co/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -60,7 +67,18 @@ class _HomeState extends State<HomeScreen> {
             const SizedBox(
               height: AppSizes.spaceBtwSections,
             ),
-            SearchContainer(darkMode: darkMode, text: 'Search', icon: Iconsax.search_normal_1,),
+            SearchContainer(
+              darkMode: darkMode,
+              text: 'Search',
+              icon: Iconsax.search_normal_1,
+            ),
+            const SizedBox(
+              height: AppSizes.spaceBtwSections,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(AppSizes.defaultSpace),
+              child: HomeSlider(),
+            ),
           ],
         ),
       ),
