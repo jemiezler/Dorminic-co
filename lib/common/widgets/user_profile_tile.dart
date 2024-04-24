@@ -4,16 +4,17 @@ import 'package:iconsax/iconsax.dart';
 
 class UserProfileTile extends StatelessWidget {
   const UserProfileTile({
-    super.key,
+    super.key, required this.onPressed,
   });
 
+  final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Image.asset('assets/icons/App-icon.png',width: 50,height: 50),
+    return ListTile( 
+      leading: Image.asset('assets/icons/App-icon.png',width: 50,height: 50,),
       title: Text('John Wick',style: Theme.of(context).textTheme.headlineSmall!.apply(color: Colors.white),),
       subtitle: Text('User65564654@gmail.com',style: Theme.of(context).textTheme.bodyMedium!.apply(color: Colors.white),),
-      trailing: IconButton(onPressed: (){}, icon: const Icon(Iconsax.edit,color:  AppColors.white)),
+      trailing: IconButton(onPressed: onPressed, icon: const Icon(Iconsax.edit,color:  AppColors.white)),
     );
   }
 }

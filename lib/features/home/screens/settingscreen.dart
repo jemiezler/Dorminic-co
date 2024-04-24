@@ -5,9 +5,15 @@ import 'package:dorminic_co/common/widgets/custom_shapes/circular_container.dart
 import 'package:dorminic_co/common/widgets/section_heading.dart';
 import 'package:dorminic_co/common/widgets/settings_menu_tile.dart';
 import 'package:dorminic_co/common/widgets/user_profile_tile.dart';
+import 'package:dorminic_co/features/authentication/screens/Notification/Notification.dart';
+import 'package:dorminic_co/features/authentication/screens/privacy/privacy.dart';
+import 'package:dorminic_co/features/authentication/screens/profile/profile.dart';
+import 'package:dorminic_co/features/authentication/screens/setting/setting.dart';
 import 'package:dorminic_co/utils/constants/colors.dart';
 import 'package:dorminic_co/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -35,7 +41,8 @@ class SettingScreen extends StatelessWidget {
                   ),
 
                   /// User Profile Card
-                  const UserProfileTile(),
+                  UserProfileTile(
+                      onPressed: () => Get.to(() => const ProfileScreen())),
                   const SizedBox(
                     height: AppSizes.spaceBtwSections,
                   ),
@@ -49,19 +56,36 @@ class SettingScreen extends StatelessWidget {
               child: Column(
                 children: [
                   /// Account Setting
-                  SectionHeading(title: 'Account Setting' , showActionButton: false),
+                  SectionHeading(
+                      title: 'Account Setting', showActionButton: false),
                   SizedBox(height: AppSizes.spaceBtwItems),
 
-                  SettingsMenuTile(icon: Iconsax.house, title: 'Account', subTitle: 'Set your account'),
-                  SettingsMenuTile(icon: Iconsax.notification, title: 'Notification', subTitle: 'Set any kind of notification message'),
-                  SettingsMenuTile(icon: Iconsax.security_card, title: 'Account Privacy', subTitle: 'Manage data usage and connected accounts'),
+                  SettingsMenuTile(
+                      icon: Iconsax.house,
+                      title: 'Account',
+                      subTitle: 'Set your account',onTap: () => Get.to(() => const ProfileScreen()),),
+                  SettingsMenuTile(
+                      icon: Iconsax.notification,
+                      title: 'Notification',
+                      subTitle: 'Set any kind of notification message',onTap: () => Get.to(() => const NotificationScreen()),),
+                  SettingsMenuTile(
+                      icon: Iconsax.security_card,
+                      title: 'Account Privacy',
+                      subTitle: 'Manage data usage and connected accounts',onTap: () => Get.to(() => const PrivacyScreen())),
 
                   SizedBox(height: AppSizes.spaceBtwSections),
-                  
-                  SectionHeading(title: 'App Setting' , showActionButton: false),
+
+                  SectionHeading(title: 'App Setting', showActionButton: false),
                   SizedBox(height: AppSizes.spaceBtwItems),
-                  SettingsMenuTile(icon: Iconsax.setting, title: 'Setting', subTitle: 'Set the suitability for use'),
-                  SettingsMenuTile(icon: Iconsax.logout, title: 'Sign out', subTitle: 'Your information will be saved for quick sign-in'),
+                  SettingsMenuTile(
+                      icon: Iconsax.setting,
+                      title: 'Settings',
+                      subTitle: 'Set the suitability for use',onTap: () => Get.to(() => const SetScreen())),
+                  SettingsMenuTile(
+                      icon: Iconsax.logout,
+                      title: 'Sign out',
+                      subTitle:
+                          'Your information will be saved for quick sign-in'),
                 ],
               ),
             )
