@@ -1,4 +1,3 @@
-
 import 'package:dorminic_co/common/widgets/custom_shapes/circular_container.dart';
 import 'package:dorminic_co/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -16,14 +15,24 @@ class CurveEdgeWidgetsetting extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(0),
         decoration: const BoxDecoration(
-          color: AppColors.dark,
-          borderRadius: BorderRadius.only(bottomLeft:Radius.circular(30), bottomRight:Radius.circular(30))),
+            color: AppColors.dark,
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30))),
         child: SizedBox(
-          height: 220,
+          height: 230,
           child: Stack(
             children: [
-              Positioned(top: -250, right: -250, child: CircularContainer(backgroundColor: AppColors.textWhite.withOpacity(0.1))),
-              Positioned(top: 50, right: -100, child: CircularContainer(backgroundColor: AppColors.textWhite.withOpacity(0.1))),
+              Positioned(
+                  top: -250,
+                  right: -250,
+                  child: CircularContainer(
+                      backgroundColor: AppColors.textWhite.withOpacity(0.1))),
+              Positioned(
+                  top: 50,
+                  right: -100,
+                  child: CircularContainer(
+                      backgroundColor: AppColors.textWhite.withOpacity(0.1))),
               child,
             ],
           ),
@@ -32,4 +41,3 @@ class CurveEdgeWidgetsetting extends StatelessWidget {
     );
   }
 }
-

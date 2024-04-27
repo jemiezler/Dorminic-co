@@ -54,14 +54,17 @@ class NavBar extends StatelessWidget {
           ),
         ),
       ),
-
-      body: Obx(() =>controller.screens[controller.selectedIndex.value]),
+      body: Obx(() => controller.screens[controller.selectedIndex.value]),
     );
-    
   }
 }
 
-class NavigationController extends GetxController{
+class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
-  final screens = [const HomeScreen(), const MenuScreen(), const ChatScreen(), const SettingScreen()];
+  final screens = [
+    const HomeScreen(),
+    const MenuScreen(),
+    ChatScreen(),
+    const SettingScreen()
+  ];
 }
