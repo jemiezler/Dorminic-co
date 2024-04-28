@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 class ChatPage extends StatefulWidget {
   final String partnerName;
 
-  const ChatPage({Key? key, required this.partnerName}) : super(key: key);
+  const ChatPage({Key? key, required this.partnerName, required String index})
+      : super(key: key);
 
   @override
   _ChatPageState createState() => _ChatPageState();

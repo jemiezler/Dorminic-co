@@ -1,69 +1,127 @@
+import 'package:dorminic_co/utils/theme/widget_themes/text_theme.dart';
 import 'package:flutter/material.dart';
 
 class NewsPage extends StatelessWidget {
-  const NewsPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ข่าวสาร'),
+        title: Text('Announcement',
+            style: AppTextTheme.lightTextTheme.headlineSmall),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            _buildNewsItem(
-              'หัวข้อข่าวที่นี่',
-              'เนื้อหาข่าวสารที่นี่...',
-              'https://th.bing.com/th/id/R.b9ef9cd01a8f2eb9a52bb821877aee60?rik=4gJB4SlKzRV64w&riu=http%3a%2f%2fwww.emperorhouse.com%2fweb2%2fwp-content%2fuploads%2f2018%2f07%2f5.png&ehk=fkL5FdmPHwyGHp%2bc45cErKFW2D0VZlR5lsSoBftF5bI%3d&risl=&pid=ImgRaw&r=0',
-            ),
-            _buildNewsItem(
-              'หัวข้อข่าวอื่น ๆ',
-              'เนื้อหาข่าวสารที่นี่...',
-              'https://thietkenhadepmoi.com/wp-content/uploads/2017/11/kien-truc-biet-thu-co-dien-phap-7442.jpg',
-            ),
-            // เพิ่มข่าวสารเพิ่มเติมตามต้องการ
-          ],
-        ),
+      body: ListView(
+        children: [
+          // American Airlines News
+          NewsItem(
+            title: 'The water doesnt flow',
+            subtitle: 'Broken pipe',
+            author: 'Marnie Hunter',
+            date: 'Recent News',
+            onTap: () {
+              // Navigate to detailed news page
+              // Implement your navigation logic here
+            },
+            backgroundColor:
+                Colors.blue.shade100, // Background color for the card
+            icon: Icons.account_circle, // Icon for the account
+          ),
+
+          // Teens have abandoned Facebook
+          NewsItem(
+            title: 'Maintenance of electrical equipment',
+            subtitle:
+                'Turn off electricity, work to fix risk points, and replace worn-out equipment.',
+            author: 'Chaisit Phatthawichayanon',
+            date: '29/05/2567 00:00',
+            onTap: () {
+              // Navigate to detailed news page
+              // Implement your navigation logic here
+            },
+            backgroundColor:
+                Colors.green.shade100, // Background color for the card
+            icon: Icons.account_circle, // Icon for the account
+          ),
+
+          // Tubi expands its free streaming service
+          NewsItem(
+            title: 'Announcement looking for a helmet',
+            subtitle:
+                'If anyone sees it, contact the administration department.',
+            author: 'Chaisit Phatthawichayanon',
+            date: '20/04/2567 09:40',
+            onTap: () {
+              // Navigate to detailed news page
+              // Implement your navigation logic here
+            },
+            backgroundColor:
+                Colors.orange.shade100, // Background color for the card
+            icon: Icons.account_circle, // Icon for the account
+          ),
+        ],
       ),
     );
   }
+}
 
-  Widget _buildNewsItem(String title, String content, String imageUrl) {
+class NewsItem extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final String author;
+  final String date;
+  final VoidCallback onTap;
+  final Color backgroundColor; // Background color for the card
+  final IconData icon; // Icon for the account
+
+  NewsItem({
+    required this.title,
+    required this.subtitle,
+    required this.author,
+    required this.date,
+    required this.onTap,
+    required this.backgroundColor,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          imageUrl.isNotEmpty
-              ? Image.network(
-                  imageUrl,
-                  height: 200.0,
-                  fit: BoxFit.cover,
-                )
-              : SizedBox.shrink(),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
+      color: backgroundColor,
+      child: InkWell(
+        splashColor: Colors.blue.withAlpha(30),
+        onTap: onTap,
+        child: Container(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(icon), // Display icon for the account
+                  SizedBox(width: 8),
+                  Text(
+                    'Author: $author',
+                    style: AppTextTheme.lightTextTheme.labelLarge,
                   ),
-                ),
-                SizedBox(height: 8.0),
-                Text(
-                  content,
-                  style: TextStyle(fontSize: 16.0),
-                ),
-              ],
-            ),
+                ],
+              ),
+              SizedBox(height: 8),
+              Text(
+                title,
+                style: AppTextTheme.lightTextTheme.headlineSmall,
+              ),
+              SizedBox(height: 8),
+              Text(
+                subtitle,
+                style: AppTextTheme.lightTextTheme.bodyMedium,
+              ),
+              SizedBox(height: 8),
+              Text(
+                'Date: $date',
+                style: AppTextTheme.lightTextTheme.labelLarge,
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

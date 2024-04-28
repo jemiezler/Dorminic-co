@@ -1,7 +1,20 @@
-import 'dart:async';
-
-import 'package:dorminic_co/features/home/Api/api.dart';
+import 'package:dorminic_co/features/home/screens/widgets/path_to_payment_page/payment_page.dart';
+import 'package:dorminic_co/utils/theme/widget_themes/text_theme.dart';
 import 'package:flutter/material.dart';
+
+// Rest of your code...
+
+class Bill {
+  final double totalAmount;
+  final DateTime dueDate;
+  bool isPaid;
+
+  Bill({
+    required this.totalAmount,
+    required this.dueDate,
+    this.isPaid = false,
+  });
+}
 
 class BillsPage extends StatefulWidget {
   const BillsPage({Key? key}) : super(key: key);
@@ -11,93 +24,106 @@ class BillsPage extends StatefulWidget {
 }
 
 class _BillsPageState extends State<BillsPage> {
-  late Future<List<dynamic>> _billsFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    _billsFuture = BillsApi.fetchBills();
-  }
+  List<Bill> _bills = [
+    Bill(totalAmount: 950.0, dueDate: DateTime(2024, 6, 30), isPaid: false),
+    Bill(totalAmount: 1050.0, dueDate: DateTime(2024, 5, 1), isPaid: false),
+    Bill(totalAmount: 1050.0, dueDate: DateTime(2024, 4, 1), isPaid: false),
+    Bill(totalAmount: 1500.0, dueDate: DateTime(2024, 5, 1), isPaid: true),
+  ].where((bill) => !bill.isPaid).toList();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bills Summary'),
+        title: Text(
+          'Bills & Payments',
+          style: AppTextTheme.lightTextTheme.headlineSmall,
+        ),
       ),
-      body: FutureBuilder<List<dynamic>>(
-        future: _billsFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No data available'));
-          } else {
-            return _buildBillsList(snapshot.data!);
-          }
-        },
-      ),
-    );
-  }
-
-  Widget _buildBillsList(List<dynamic> bills) {
-    return ListView.builder(
-      itemCount: bills.length,
-      itemBuilder: (context, index) {
-        return _buildPaymentHistoryCard(
-          date: '${bills[index]['month']}-${bills[index]['year']}',
-          status: bills[index]['isPaid'] == 1 ? 'Paid' : 'Unpaid',
-        );
-      },
-    );
-  }
-
-  Widget _buildPaymentHistoryCard(
-      {required String date, required String status}) {
-    Color statusColor = status == 'Paid' ? Colors.green : Colors.red;
-
-    return Card(
-      elevation: 4.0,
-      margin: EdgeInsets.only(bottom: 16.0),
-      child: InkWell(
-        onTap: () {
-          // Handle tap on payment history card to view details
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Date: $date',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
+      body: Padding(
+        padding: EdgeInsets.all(5.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Card(
+              elevation: 4.0,
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    Text(
+                      'Total monthly amount to pay',
+                      style: AppTextTheme.lightTextTheme.subtitle1,
                     ),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    'Status: $status',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: statusColor,
+                    SizedBox(height: 10.0),
+                    Text(
+                      '${_bills.fold(0.0, (previousValue, bill) => previousValue + bill.totalAmount).toStringAsFixed(2)} Bath',
+                      style: AppTextTheme.lightTextTheme.headline4,
                     ),
-                  ),
-                ],
+                    SizedBox(height: 20.0),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => PaymentPage(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Pay Now',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              IconButton(
-                onPressed: () {
-                  // Handle "more detail" button tap for payment history
+            ),
+            SizedBox(height: 20.0),
+            Text(
+              'Payment history',
+              style: AppTextTheme.lightTextTheme.headline5,
+            ),
+            SizedBox(height: 10.0),
+            Expanded(
+              child: ListView.builder(
+                itemCount: _bills.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                        bottom: 10.0), //Add bottom padding here
+                    child: Card(
+                      elevation: 4.0,
+                      child: ExpansionTile(
+                        title: Text(
+                            'Total Amount: ${_bills[index].totalAmount.toString()} Bath',
+                            style: AppTextTheme.lightTextTheme.subtitle1),
+                        subtitle: Text(
+                            'Due Date: ${_bills[index].dueDate.month}/${_bills[index].dueDate.year} - Status: ${_bills[index].isPaid ? 'Paid' : 'Unpaid'}',
+                            style: AppTextTheme.lightTextTheme.caption),
+                        children: [
+                          ListTile(
+                            title: Text('Electricity Bill: 500 Bath',
+                                style: AppTextTheme.lightTextTheme.subtitle1),
+                          ),
+                          ListTile(
+                            title: Text('Water Bill: 300 Bath',
+                                style: AppTextTheme.lightTextTheme.subtitle1),
+                          ),
+                          ListTile(
+                            title: Text('Rent: 150 Bath',
+                                style: AppTextTheme.lightTextTheme.subtitle1),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
                 },
-                icon: Icon(Icons.arrow_forward_ios),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
