@@ -48,9 +48,11 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: AppSizes.spaceBtwItems),
 
               ProfileMenu(title: 'Name', value: 'John Wick',onPressed: (){
-                
+                _showNameInputDialog(context);
               },),
-              ProfileMenu(title: 'Username', value: 'JohnWick5697',onPressed: (){}),
+              ProfileMenu(title: 'Username', value: 'JohnWick5697',onPressed: (){
+                _showNameInputDialog(context);
+              }),
 
               const SizedBox(height: AppSizes.spaceBtwItems),
               const Divider(),
@@ -61,11 +63,19 @@ class ProfileScreen extends StatelessWidget {
               const SectionHeading(title: 'Personal Information',showActionButton: false),
               const SizedBox(height: AppSizes.spaceBtwItems),
 
-              ProfileMenu(title: 'User ID', value: '12345',icon: Iconsax.copy,onPressed: (){}),
-              ProfileMenu(title: 'E-mail', value: 'User56412166541@gmail.com',onPressed: (){}),
-              ProfileMenu(title: 'Phone Number', value: 'John Wick',onPressed: (){}),
-              ProfileMenu(title: 'Gender', value: 'Male',onPressed: (){}),
-              ProfileMenu(title: 'Date of Birth', value: '10 Oct. 1996',onPressed: (){}),
+              
+              ProfileMenu(title: 'E-mail', value: 'User56412166541@gmail.com',onPressed: (){
+                _showNameInputDialog(context);
+              }),
+              ProfileMenu(title: 'Phone Number', value: 'John Wick',onPressed: (){
+                _showNameInputDialog(context);
+              }),
+              ProfileMenu(title: 'Gender', value: 'Male',onPressed: (){
+                _showNameInputDialog(context);
+              }),
+              ProfileMenu(title: 'Date of Birth', value: '10 Oct. 1996',onPressed: (){
+                _showNameInputDialog(context);
+              }),
               const Divider(),
               const SizedBox(height: AppSizes.spaceBtwItems),
 
@@ -75,6 +85,81 @@ class ProfileScreen extends StatelessWidget {
               )
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+void _showNameInputDialog(BuildContext context) {
+    TextEditingController _nameController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Change'),
+          content: TextField(
+            controller: _nameController,
+            decoration: InputDecoration(
+              hintText: 'Enter your new text',
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                // Add logic to save the new name
+                String newName = _nameController.text;
+                // Perform any action with the new name here
+                // For example, you can print it
+                print('New name: $newName');
+                Navigator.pop(context);
+              },
+              child: Text('Save'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Cancel'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+class ProfileMenu extends StatelessWidget {
+  final String title;
+  final String value;
+  final VoidCallback onPressed;
+
+  const ProfileMenu({
+    Key? key,
+    required this.title,
+    required this.value,
+    required this.onPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                title,
+                style: TextStyle(fontSize: 18),
+              ),
+            ),
+            Text(
+              value,
+              style: TextStyle(fontSize: 16),
+            ),
+            Icon(Icons.arrow_forward_ios),
+          ],
         ),
       ),
     );

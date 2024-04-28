@@ -1,9 +1,4 @@
-import 'package:dorminic_co/common/widgets/appbar.dart';
-import 'package:dorminic_co/common/widgets/section_heading.dart';
-import 'package:dorminic_co/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 
 class NotificationScreen extends StatelessWidget {
@@ -12,72 +7,80 @@ class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        showBackArrow: true,
-        title: Text('Notification',
-            style: Theme.of(context).textTheme.headlineSmall),
+      appBar: AppBar(
+        title: Text('Notification'),
       ),
       body: ListView(
-        children: const <Widget>[
-          ListTile(
-            leading: Icon(Iconsax.receipt,size: 28,),
-            title: Text('You have new massage',),
-            subtitle: Text('4 days ago'),
-            trailing: Icon(Iconsax.arrow_right_34,size:28),
+        children: <Widget>[
+          NotificationTile(
+            title: 'You have new massage',
+            subtitle: '4 days ago',
+            onTap: () {
+              _showNotificationDetails(context, 'You have new massage');
+            },
           ),
-          Divider(height: 0,),
-          ListTile(
-            leading: Icon(Iconsax.receipt,size: 28,),
-            title: Text('You have new massage',),
-            subtitle: Text('8 days ago'),
-            trailing: Icon(Iconsax.arrow_right_34,size:28),
+          // Add more NotificationTile widgets here...
+          NotificationTile(
+            title: 'You have new massage',
+            subtitle: '10 days ago',
+            onTap: () {
+              _showNotificationDetails(context, 'You have new massage');
+            },
           ),
-          Divider(height: 0,),
-          ListTile(
-            leading: Icon(Iconsax.receipt,size: 28,),
-            title: Text('You have new massage',),
-            subtitle: Text('1 mounth ago'),
-            trailing: Icon(Iconsax.arrow_right_34,size:28),
+          NotificationTile(
+            title: 'You have new massage',
+            subtitle: '14 days ago',
+            onTap: () {
+              _showNotificationDetails(context, 'You have new massage');
+            },
           ),
-          Divider(height: 0,),
-          ListTile(
-            leading: Icon(Iconsax.receipt,size: 28,),
-            title: Text('You have new massage',),
-            subtitle: Text('2 mounths ago'),
-            trailing: Icon(Iconsax.arrow_right_34,size:28),
-          ),
-          Divider(height: 0,),
-          ListTile(
-            leading: Icon(Iconsax.receipt,size: 28,),
-            title: Text('You have new massage',),
-            subtitle: Text('2 mounths ago'),
-            trailing: Icon(Iconsax.arrow_right_34,size:28),
-          ),
-          Divider(height: 0,),
-          ListTile(
-            leading: Icon(Iconsax.receipt,size: 28,),
-            title: Text('You have new massage',),
-            subtitle: Text('3 mounths ago'),
-            trailing: Icon(Iconsax.arrow_right_34,size:28),
-          ),
-          Divider(height: 0,),
-          ListTile(
-            leading: Icon(Iconsax.receipt,size: 28,),
-            title: Text('You have new massage',),
-            subtitle: Text('3 mounths ago'),
-            trailing: Icon(Iconsax.arrow_right_34,size:28),
-          ),
-          Divider(height: 0,),
-          ListTile(
-            leading: Icon(Iconsax.receipt,size: 28,),
-            title: Text('You have new massage',),
-            subtitle: Text('4 mounths ago'),
-            trailing: Icon(Iconsax.arrow_right_34,size:28),
-            
-          ),
-          Divider(height: 0,),
         ],
       ),
+    );
+  }
+
+  void _showNotificationDetails(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Notification Details'),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class NotificationTile extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  const NotificationTile({
+    Key? key,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+ 
+    return ListTile(
+      leading: Icon(Icons.receipt, size: 28),
+      title: Text(title),
+      subtitle: Text(subtitle),
+      trailing: Icon(Iconsax.notification),
+      onTap: onTap,
     );
   }
 }
