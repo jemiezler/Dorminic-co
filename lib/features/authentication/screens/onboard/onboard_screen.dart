@@ -4,16 +4,16 @@ import 'package:dorminic_co/features/authentication/screens/onboard/widgets/onbo
 import 'package:dorminic_co/features/authentication/screens/onboard/widgets/onboard_page.dart';
 import 'package:dorminic_co/utils/constants/assetpath.dart';
 import 'package:dorminic_co/utils/constants/text_provider.dart';
+import 'package:dorminic_co/utils/http/http_client.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class OnboardScreen extends StatelessWidget {
-  const OnboardScreen({super.key});
+  const OnboardScreen({super.key, required APIClient apiClient});
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(OnBoardController());
-
     return Scaffold(
       body: Stack(
         children: [

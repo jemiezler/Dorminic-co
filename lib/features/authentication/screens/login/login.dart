@@ -24,12 +24,6 @@ class LoginScreen extends StatelessWidget {
               LoginHeader(dark: dark),
 
               const LoginForm(),
-
-              //--Divider
-              OauthTexts(dark: dark),
-
-              const SizedBox(height: AppSizes.spaceBtwItems,),
-              const LoginOauths()
             ],
           ),
         ),

@@ -1,47 +1,35 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class THttpHelper {
-  static const String _baseUrl = 'https://your-api-base-url.com'; // Replace with your API base URL
+class APIClient {
+  static final APIClient _singleton = APIClient._internal();
 
-  // Helper method to make a GET request
-  static Future<Map<String, dynamic>> get(String endpoint) async {
-    final response = await http.get(Uri.parse('$_baseUrl/$endpoint'));
-    return _handleResponse(response);
+  factory APIClient() {
+    return _singleton;
   }
 
-  // Helper method to make a POST request
-  static Future<Map<String, dynamic>> post(String endpoint, dynamic data) async {
-    final response = await http.post(
-      Uri.parse('$_baseUrl/$endpoint'),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode(data),
-    );
-    return _handleResponse(response);
-  }
+  APIClient._internal();
 
-  // Helper method to make a PUT request
-  static Future<Map<String, dynamic>> put(String endpoint, dynamic data) async {
-    final response = await http.put(
-      Uri.parse('$_baseUrl/$endpoint'),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode(data),
-    );
-    return _handleResponse(response);
-  }
+  final String baseUrl =
+      'https://dorminic-express-server-7zemj3wqeq-de.a.run.app';
+  http.Client client = http.Client();
 
-  // Helper method to make a DELETE request
-  static Future<Map<String, dynamic>> delete(String endpoint) async {
-    final response = await http.delete(Uri.parse('$_baseUrl/$endpoint'));
-    return _handleResponse(response);
-  }
+  // Example method for making API requests
 
-  // Handle the HTTP response
-  static Map<String, dynamic> _handleResponse(http.Response response) {
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
-    } else {
-      throw Exception('Failed to load data: ${response.statusCode}');
+  Future<http.Response> loginUser(String username, String password) async {
+    var url = Uri.parse('$baseUrl/login');
+    try {
+      var response = await client.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'username': username, 'password': password}),
+      );
+      return response;
+    } catch (e) {
+      print('Error: $e');
+      rethrow; // Rethrow the error to propagate it further if needed
     }
   }
+
+  // Other API methods can be added here
 }
